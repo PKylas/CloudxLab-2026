@@ -16,4 +16,4 @@ while True:
         break
     counter+=1
 
-print(res)
+print("The number is base 3 number system is: ", res)
