@@ -26,6 +26,7 @@ while(i < len):
     i+=1
     summed = 0
 
+res.append(carry)
 final_sum = res[::-1]
 
 final_sum = "".join(map(str, final_sum))
