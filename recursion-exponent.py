@@ -1,11 +1,14 @@
 #! /usr/bin/python3
 
-def recursion(x):
+def power(x):
     return x
         
-y = int(input("Enter a number: "))
-res = x = 1
-while(x <= y):
-    res=res*(recursion(x))
-    x+=1
+x, y = [int(i) for i in input("Enter two numbers: ").split()]
+res = 1
+while(True):
+    if y >= 1:
+      res=res*power(x)
+      y-=1
+    else:
+       break
 print(res)
