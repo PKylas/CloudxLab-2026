@@ -20,6 +20,5 @@ else:
      dividend = recursive_divide(dividend, divisor)
      if((dividend-divisor) < 0):
         break
-
-res = (counter, dividend)
+    res = (counter, dividend)
 print("The quotient and remainder are:", res)
