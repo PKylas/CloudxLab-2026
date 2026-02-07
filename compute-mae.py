@@ -3,7 +3,6 @@
 
 def compute_mae(LA, LP):
     sum = i = j = 0
-    counter=0
     for i in range(len(LA)):
         j = 0
         for j in range(len(LA[i])):

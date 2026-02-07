@@ -15,7 +15,8 @@ def find_nearest_neighbour(data, target):
             min = diff[i]
     return ans
 
-        
+
+print("Let's compute the nearest neighbour to a target point!\n")        
 data = input("Please enter some numbers separated by a blank space: ")
 data = list(map(int, data.split()))
 data.sort()
