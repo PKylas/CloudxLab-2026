@@ -1,14 +1,15 @@
 #! /usr/bin/python3
 
-def power(x):
-    return x
+def power(x,y):
+  if y == 0:
+       return 1
+  else:
+      return x*power(x,y-1)
         
 x, y = [int(i) for i in input("Enter two numbers: ").split()]
-res = 1
-while(True):
-    if y >= 1:
-      res=res*power(x)
-      y-=1
-    else:
-       break
-print(res)
+ans = 1
+
+ans = power(x, y)
+
+print(ans)
+
