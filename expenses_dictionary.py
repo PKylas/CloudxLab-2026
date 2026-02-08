@@ -11,7 +11,7 @@ def update_expenses(expense_list, expenses_dict):
           elif items.isnumeric() and string in expenses_dict:
               expenses_dict[string] = expenses_dict.get(string, 0)+int(items)
            
-             
+    print("Updated expenses:")         
     print_expenses(expenses_dict)
             
 
