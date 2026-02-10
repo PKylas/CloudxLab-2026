@@ -14,7 +14,7 @@ def tower_of_hanoi(x):
 a = "tower A"    
 aux = "tower B"
 target = "tower C"
-x = int(input("Please enter the number of towers: ")) 
+x = int(input("Please enter the number of discs: ")) 
 res = tower_of_hanoi(x)
 
-print(f"Minimum moves to solve {x} towers: ", res)
+print(f"Minimum moves to solve {x} discs: ", res)
