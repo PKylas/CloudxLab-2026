@@ -1,8 +1,5 @@
 #! /usr/bin/python3
 
-import sys
-sys.setrecursionlimit(2000)
-
 class Node:
     left = None
     right = None
