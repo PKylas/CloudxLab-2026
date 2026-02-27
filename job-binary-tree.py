@@ -9,21 +9,20 @@ class DT:
         
         
     def check(self, jd_dict):
-        if jd_dict[self.attribute] < self.boundary:
-            return self.left.check()
-        else:
-            return self.right.check()
+        if int(jd_dict[self.attribute]) < self.boundary: ##returns error "TypeError: 'int' object is not subscriptable"
+            return False
+        elif int(jd_dict[self.attribute]) >= self.boundary:
+            if self.right:
+                return self.right.check(jd_dict[self.attribute])
+            else:
+                return True
 
-No = DT()
-Yes = DT()
+dt = DT('salary', 1000, False,
+        DT('nightshift', 0, True, False))
 
-dt = DT('salary', 1000, No, 
-        DT('nightshift', 1, No, Yes))
-
-ans = dt.check(
-    {
+ans = {
         'salary': 3000,
         'nightshift': 0,
-    })
+    }
 
-print(ans)
+print(dt.check(ans))
