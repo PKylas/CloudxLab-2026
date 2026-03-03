@@ -1,23 +1,38 @@
 #! /usr/bin/python3
 
 class DT:
-    def __init__(self, jd_dict, attribute, boundary, left, right):
-        self.jd_dict = jd_dict
+    def __init__(self, attribute, boundary, left=None, right=None):
         self.attribute = attribute
-        self.left = left 
-        self.right = right
         self.boundary = boundary
+        if left:
+           self.left = left 
+        else:
+           self.left = No()
+        if right:
+         self.right = right  
+        else:
+           self.right = Yes()  
         
-        
-    def check(self, jd_dict):
-        if jd_dict[self.attribute] < self.boundary: #check salary
-            return "No"
-        elif jd_dict[self.attribute] >= self.boundary:
-            if self.right:
-                return self.right.check(jd_dict[self.attribute]) #does not check nightshift
-            else:
-                return "Yes"
+    def check(self, sal):
+        if sal[self.attribute] < self.boundary:
+            return self.left.check(sal)
+        else:
+            return self.right.check(sal) 
+            
+class Yes():
+   def __init__(self):
+      pass
+   def check(self, sal):
+      return "Yes"
+class No():
+   def __init__(self):
+      pass
+   def check(self, sal):
+      return "No"
 
-jd_dict = {'salary': 3000, 'nightshift': 0}
-instance = DT(jd_dict, attribute="salary", boundary=1000, left=None, right=None) #Only one key can be given as the attribute
-print(instance.check(jd_dict))
+midnight = DT("salary", 23000)
+wfh = DT("wfh", 1, midnight)
+tree = DT("salary", 25000, wfh)
+
+
+print(tree.check({"salary": 15000, "wfh": 0, "midnight": 0}))
