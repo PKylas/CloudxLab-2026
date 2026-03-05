@@ -22,9 +22,9 @@ def processdata(data):
         data_processed.append((features, label))
     return data_processed
 
-print(len(data[3][0]))
-
 dataset = processdata(data)
+
+
 
 def entropy(dataset):
     new_tuple = [row[1] for row in dataset]
