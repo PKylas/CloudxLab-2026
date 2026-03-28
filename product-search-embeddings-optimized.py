@@ -25,9 +25,7 @@ embeddings_title = df['Title'].apply(lambda x: model.encode(x).tolist())
 
 embeddings_combined = embeddings_sc + embeddings_price + embeddings_discount + embeddings_title
 
-df['combined'] = df['Sub Category']+df['Price_string']+df['Discount_string']+df['Title']
-
-documents_list = np.array(df['combined'].tolist())
+df['combined'] = df['Sub Category']+" "+df['Price_string']+" "+df['Discount_string']+" "+df['Title']
 
 collection_name = "electronics_collection"
 try:
@@ -40,7 +38,7 @@ document_ids = [f"id_{i}" for i in range(len(df['Title']))]
 
 
 collection.add(
-    documents=df['Title'].tolist(),
+    documents=df['combined'].tolist(),
     ids=document_ids
 )
 
