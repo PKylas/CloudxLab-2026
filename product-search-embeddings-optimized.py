@@ -43,7 +43,7 @@ collection.add(
 )
 
 result = collection.query( 
-    query_texts=["laptops with discount"],
+    query_texts=["Gaming computers below 1000"],
     n_results=5,
 )
 
