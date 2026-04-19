@@ -55,10 +55,11 @@ def change_password(ssn: str, old_password: str, new_password: str) -> str:
             if ssn is value:
                 if old_password in USER_DB[value]["password"]:
                     if old_password is not new_password:
-                        c+=1
-                        return "Password Changed!"           
+                        c+=1           
             elif c == 0 and key == len(USER_DB)-1:
                 return "Invalid input."
+        if c > 0:
+          return "Password Changed!"
     except Exception as e:
         return f"Error: {e}"
 
