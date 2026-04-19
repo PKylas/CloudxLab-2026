@@ -121,6 +121,9 @@ print(response.output_text)
 
 # Tool defined!
 # User DB loaded with 2 users.
-# Password Changed!
-# [ResponseReasoningItem(id='rs_0e2ef5515c9547610069e4dc257fc8819fad597e483d6f6da3', summary=[], type='reasoning', content=None, encrypted_content=None, status=None), ResponseFunctionToolCall(arguments='{"ssn":"987-65-4321","old_password":"securepass!","new_password":"anypass4798"}', call_id='call_KsKqGs1ouJbyNaJ6yhWY2GKG', name='change_password', type='function_call', id='fc_0e2ef5515c9547610069e4dc279c0c819fa2394f3135dd482e', status='completed'), {'type': 'function_call_output', 'call_id': 'call_KsKqGs1ouJbyNaJ6yhWY2GKG', 'output': 'Invalid input.'}]
+# Password Changed! --> change_password function output
+# [ResponseReasoningItem(id='rs_0e2ef5515c9547610069e4dc257fc8819fad597e483d6f6da3', summary=[], type='reasoning', content=None, encrypted_content=None, status=None), \
+# ResponseFunctionToolCall(arguments='{"ssn":"987-65-4321","old_password":"securepass!","new_password":"anypass4798"}', \
+# call_id='call_KsKqGs1ouJbyNaJ6yhWY2GKG', name='change_password', type='function_call', id='fc_0e2ef5515c9547610069e4dc279c0c819fa2394f3135dd482e', status='completed'), \
+# {'type': 'function_call_output', 'call_id': 'call_KsKqGs1ouJbyNaJ6yhWY2GKG', 'output': 'Invalid input.'}] --> wrong output
 # It seems there was an issue updating your password. Please double-check your SSN and current password and try again. If the problem persists, contact support for assistance.
