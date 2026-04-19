@@ -46,7 +46,7 @@ def generate_hash(text: str) -> str:
 
 input_list = [{
     "role":"user",
-    "content": "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts."
+    "content": "This is a random string."
 } ]
 
 response = client.responses.create(
@@ -70,6 +70,7 @@ for item in response.output:
                 "call_id": item.call_id,
                 "output": hashed_out,
             })
+# print(input_list)
     
 response = client.responses.create(
     model="o4-mini",
