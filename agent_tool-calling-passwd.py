@@ -42,36 +42,40 @@ tool1 = [
 print("Tool defined!")
 
 USER_DB = {
-    "123-45-6789": {"password": "oldpass123", "name": "Alice"},
+    "143-27-8934": {"password": "thispass!", "name": "Alice"},
     "987-65-4321": {"password": "securepass!", "name": "Bob"},
 }
 
 print("User DB loaded with", len(USER_DB), "users.")
 
 def change_password(ssn: str, old_password: str, new_password: str) -> str:
+    c = 0
     try:
         for key, value in enumerate(USER_DB):
             if ssn is value:
                 if old_password in USER_DB[value]["password"]:
                     if old_password is not new_password:
-                        return "Password Changed!"              
-            elif key == len(USER_DB)-1:
+                        c+=1
+                        return "Password Changed!"           
+            elif c == 0 and key == len(USER_DB)-1:
                 return "Invalid input."
     except Exception as e:
         return f"Error: {e}"
 
-# print(change_password("123-45-6789", "oldpass123", "newpass456"))  # Should print: Password Changed!
+# print(change_password("143-27-8934", "oldpass123", "newpass456"))  # Should print: Password Changed!
 # print(change_password("123-45-6789", "wrongpass", "newpass456"))   # Should print: Error message
 # print(change_password("000-00-0000", "anything", "anything")) 
-print(change_password("987-65-4321", "securepass!", "anypass4798"))
+print(change_password("143-27-8934", "thispass!", "anypass4798"))
 
 
 system_prompt = """
 You are an AI assistant that calls the change_password tool.
+- Make a new function call and do not rely on previous call histories.
 - Make sure that the SSN in user input is present in the USER_DB dictionary.
 - Make sure that the old password is present in the USER_DB dictionary.
 - Make sure that the old passord is not the new password.
 - The output must be the result from the change_password function."""
+
 
 input_list = [
     {
@@ -115,7 +119,6 @@ response = client.responses.create(
 )
 
 print(response.output_text)
-
 
 ## Tool output is wrong but the function gives the correct output:
 
