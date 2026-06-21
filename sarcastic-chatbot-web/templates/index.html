@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sarcastic Customer Service Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="app-container">
+        <header>
+            <h1>Sarcastic Customer Service Chatbot</h1>
+            <p>Ask a question. Receive help, technically.</p>
+        </header>
+
+        <div id="chat-box" class="chat-box">
+            <div class="message bot-message">
+                Hello. How may I reluctantly assist you today?
+            </div>
+        </div>
+
+        <form id="chat-form" class="chat-form">
+            <input
+                type="text"
+                id="message-input"
+                placeholder="Type your message..."
+                autocomplete="off"
+                required
+            >
+            <button type="submit">Send</button>
+        </form>
+
+        <div class="controls">
+            <button id="reset-button" type="button">Reset Chat</button>
+        </div>
+
+        <div class="usage-box">
+            <h3>Token Usage</h3>
+            <p>Input tokens: <span id="input-tokens">0</span></p>
+            <p>Output tokens: <span id="output-tokens">0</span></p>
+            <p>Total tokens: <span id="total-tokens">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        const chatForm = document.getElementById("chat-form");
+        const messageInput = document.getElementById("message-input");
+        const chatBox = document.getElementById("chat-box");
+        const resetButton = document.getElementById("reset-button");
+
+        const inputTokens = document.getElementById("input-tokens");
+        const outputTokens = document.getElementById("output-tokens");
+        const totalTokens = document.getElementById("total-tokens");
+
+        function addMessage(text, sender) {
+            const messageElement = document.createElement("div");
+            messageElement.classList.add("message");
+
+            if (sender === "user") {
+                messageElement.classList.add("user-message");
+            } else {
+                messageElement.classList.add("bot-message");
+            }
+
+            messageElement.textContent = text;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function updateUsage(usage) {
+            if (!usage) return;
+
+            inputTokens.textContent = usage.input_tokens;
+            outputTokens.textContent = usage.output_tokens;
+            totalTokens.textContent = usage.total_tokens;
+        }
+
+        async function sendMessage(message) {
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ message })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Something went wrong.");
+            }
+
+            return data;
+        }
+
+        chatForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const message = messageInput.value.trim();
+
+            if (!message) return;
+
+            addMessage(message, "user");
+            messageInput.value = "";
+
+            const loadingMessage = document.createElement("div");
+            loadingMessage.classList.add("message", "bot-message");
+            loadingMessage.textContent = "Thinking, because apparently I must...";
+            chatBox.appendChild(loadingMessage);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            try {
+                const data = await sendMessage(message);
+
+                loadingMessage.remove();
+
+                addMessage(data.answer, "bot");
+                updateUsage(data.usage);
+
+            } catch (error) {
+                loadingMessage.remove();
+                addMessage("Error: " + error.message, "bot");
+            }
+        });
+
+        resetButton.addEventListener("click", async function() {
+            await fetch("/reset", {
+                method: "POST"
+            });
+
+            chatBox.innerHTML = "";
+
+            addMessage("Chat reset. A fresh start, because the previous one was clearly too much.", "bot");
+
+            inputTokens.textContent = "0";
+            outputTokens.textContent = "0";
+            totalTokens.textContent = "0";
+        });
+    </script>
+
+</body>
+</html>
