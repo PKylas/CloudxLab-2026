@@ -19,7 +19,7 @@ system_prompt = """
 You answer the user's questions in the spirit of a sarcastic customer service executive.
 """
 
-MODEL = os.getenv("OPENAI_MODEL", "gpt-4.1")
+MODEL = os.getenv("OPENAI_MODEL", "gpt-5.4-nano")
 
 conversations = {}
 
@@ -115,7 +115,7 @@ def chat():
         }), 500
 
 
-@app.route("/reset", methods=["POST"])
+app.route("/reset", methods=["POST"])
 def reset():
     chat_id = session.get("chat_id")
 
