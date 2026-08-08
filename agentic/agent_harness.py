@@ -150,9 +150,9 @@ def agent_harness(user_question: str,  max_steps = 20):
             user_question=user_question,   
             relevant_info = search(user_question, 1), # document_list could be very big, shorten by using RAG
         )
-        if context:
-            if len(context) > .8 * max_prompt_size:
-                context = summarize_context(context)
+        # if context:
+        #     if len(context) > .8 * max_prompt_size:
+        #         context = summarize_context(context)
 
         prompt += context
         
@@ -176,11 +176,13 @@ def agent_harness(user_question: str,  max_steps = 20):
             filename = value.strip()
 
             try:
-                content_file = read_file(file_name=filename) # split the files
+                abs_file_path = os.path.join(documents_folder, filename)
+                with open(abs_file_path) as file:
+                    content_file = read_file(file_name=file) # split the files
 
-                context += f"\nContent of {filename}:\n{content_file}"
+                context += f"\nContent of {file}:\n{content_file}"
             except:                
-                context += f"\nError: {filename} does not exist."
+                context += f"\nError: {file} does not exist."
 
         else:
             context += f"""The previous LLM output was invalid:{value}
