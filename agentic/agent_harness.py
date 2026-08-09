@@ -156,11 +156,11 @@ def agent_harness(user_question: str,  max_steps = 20):
 
         prompt += context
         
-        print(f"Prompt: {prompt}")
+        # print(f"Prompt: {prompt}")
         
         llm_out = call_llm(prompt)
         
-        print(llm_out)
+        # print(llm_out)
         
         action, value = parse_action(llm_out)
         
